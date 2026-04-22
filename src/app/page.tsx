@@ -113,6 +113,7 @@ export default function Home() {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => toggleTodo(todo.id)}
+                    aria-label={`Toggle ${todo.text}`}
                     className={`flex h-6 w-6 items-center justify-center rounded-full border-2 transition-colors ${
                       todo.completed
                         ? "border-zinc-900 bg-zinc-900 text-white dark:border-zinc-50 dark:bg-zinc-50 dark:text-zinc-950"
@@ -146,6 +147,7 @@ export default function Home() {
                 </div>
                 <button
                   onClick={() => deleteTodo(todo.id)}
+                  aria-label={`Delete ${todo.text}`}
                   className="rounded-lg p-2 text-zinc-400 opacity-0 transition-all hover:bg-zinc-50 hover:text-red-600 group-hover:opacity-100 dark:text-zinc-600 dark:hover:bg-zinc-800 dark:hover:text-red-400"
                 >
                   <svg

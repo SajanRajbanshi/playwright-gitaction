@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('http://localhost:3000');
+  await page.goto('/');
 });
 
 test.describe('Todo App', () => {
@@ -30,9 +30,8 @@ test.describe('Todo App', () => {
     await newTodo.fill('Buy milk');
     await newTodo.press('Enter');
 
-    // Click the toggle button (the circle)
-    // In our implementation, it's a button with a circle border
-    await page.getByRole('button', { name: 'Buy milk' }).locator('xpath=..').getByRole('button').first().click();
+    // Click the toggle button using its aria-label
+    await page.getByLabel('Toggle Buy milk').click();
 
     // The text should now have line-through class
     const todoText = page.getByText('Buy milk');
@@ -44,9 +43,10 @@ test.describe('Todo App', () => {
     await newTodo.fill('Buy milk');
     await newTodo.press('Enter');
 
-    // Hover to show delete button and click it
+    // Hover over the todo item to reveal the delete button and click it
+    // We use the aria-label for the delete button
     await page.getByText('Buy milk').hover();
-    await page.getByRole('button').last().click();
+    await page.getByLabel('Delete Buy milk').click({ force: true }); // force: true because it might be partially obscured or hidden
 
     // The todo should be gone
     await expect(page.getByText('Buy milk')).not.toBeVisible();
