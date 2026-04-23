@@ -1,11 +1,11 @@
 import { test, expect } from '@playwright/test';
 
-test.beforeEach(async ({ page }) => {
-  await page.goto('/');
-});
-
 test.describe('Todo App', () => {
-  test('should allow me to add todo items', async ({ page }) => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/');
+  });
+
+  test('should allow me to add todo items @smoke', async ({ page }) => {
     // create a new todo locator
     const newTodo = page.getByPlaceholder('Add a new task...');
 
